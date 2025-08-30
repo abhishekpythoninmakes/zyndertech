@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ training.name }} - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .training-hero {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(239, 246, 255, 0.9) 100%);
+        padding: 140px 0 80px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .training-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -30%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    }
+
+    .training-image {
+        border-radius: 24px;
+        box-shadow: var(--shadow-xl);
+        max-height: 450px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow-lg);
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .whatsapp-btn {
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 16px 32px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    .whatsapp-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        color: white;
+    }
+
+    .download-btn {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 16px 32px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    .download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        color: white;
+    }
+
+    .content-section {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 3rem;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .sticky-sidebar {
+        position: sticky;
+        top: 120px;
+    }
+
+    @media (max-width: 992px) {
+        .sticky-sidebar {
+            position: relative;
+            top: 0;
+        }
+        .training-hero {
+            padding: 120px 0 60px;
+        }
+        .content-section {
+            padding: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .training-hero {
+            padding: 100px 0 40px;
+        }
+        .feature-card {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="training-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1 class="display-4 fw-bold mb-4">{{ training.name }}</h1>
+                <p class="lead mb-4">{{ training.short_description }}</p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    {% if site_settings.whatsapp_number %}
+                    <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi, I'm interested in {{ training.name }} training. Please provide more details about enrollment."
+                       class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp me-2"></i>
+                        Enroll via WhatsApp
+                    </a>
+                    {% endif %}
+
+                    {% if training.pdf_file %}
+                    <a href="{{ training.pdf_file.url }}" class="download-btn" download>
+                        <i class="fas fa-download me-2"></i>
+                        Download Curriculum
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+                <img src="{{ training.image.url }}" alt="{{ training.name }}" class="img-fluid training-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content-section" data-aos="fade-up">
+                    <h2 class="fw-bold mb-4">Training Overview</h2>
+                    <div class="content">
+                        {{ training.full_description|safe }}
+                    </div>
+                </div>
+
+                {% if training.curriculum %}
+                <div class="content-section" data-aos="fade-up">
+                    <h2 class="fw-bold mb-4">Curriculum</h2>
+                    <div class="content">
+                        {{ training.curriculum|safe }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if training.features %}
+                <div class="content-section" data-aos="fade-up">
+                    <h2 class="fw-bold mb-4">What You'll Learn</h2>
+                    <div class="content">
+                        {{ training.features|safe }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sticky-sidebar">
+                    <div class="feature-card mb-4" data-aos="fade-up">
+                        <h5 class="fw-bold mb-3">Get Started Today</h5>
+                        <p class="mb-3">Ready to master {{ training.name }}? Contact our experts for enrollment.</p>
+
+                        {% if training.duration %}
+                        <p><strong>Duration:</strong> {{ training.duration }}</p>
+                        {% endif %}
+                        <p><strong>Level:</strong> {{ training.get_level_display }}</p>
+
+                        {% if site_settings.whatsapp_number %}
+                        <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi, I'm interested in {{ training.name }} training. Please provide more details about enrollment."
+                           class="btn btn-primary w-100 mb-3" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>
+                            Enroll via WhatsApp
+                        </a>
+                        {% endif %}
+
+                        <a href="{% url 'contact' %}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-envelope me-2"></i>
+                            Get More Info
+                        </a>
+                    </div>
+
+                    {% if training.pdf_file %}
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <h5 class="fw-bold mb-3">Download Curriculum</h5>
+                        <p class="mb-3">Get the detailed curriculum of {{ training.name }} in PDF format.</p>
+
+                        <a href="{{ training.pdf_file.url }}" class="btn btn-success w-100" download>
+                            <i class="fas fa-download me-2"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if related_trainings %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-bold">Related Training Programs</h2>
+            <p class="lead text-muted">Continue your ServiceNow learning journey</p>
+        </div>
+
+        <div class="row g-4">
+            {% for related_training in related_trainings %}
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                <div class="card service-card glass-card h-100">
+                    <img src="{{ related_training.image.url }}" class="card-img-top" alt="{{ related_training.name }}" style="height: 220px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">{{ related_training.name }}</h5>
+                        <p class="card-text flex-grow-1 text-muted">{{ related_training.short_description }}</p>
+                        <a href="{{ related_training.get_absolute_url }}" class="btn btn-primary mt-auto">
+                            Learn More <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

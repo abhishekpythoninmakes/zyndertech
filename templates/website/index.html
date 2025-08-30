@@ -1,0 +1,628 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section with Enhanced Design */
+    .hero-section {
+        min-height: 100vh;
+        background: radial-gradient(ellipse at 50% -20%, rgba(249, 115, 22, 0.3) 0%, transparent 60%),
+                    linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fff7ed 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 120px 0 80px;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        z-index: 0;
+    }
+
+    .particles-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .particle {
+        position: absolute;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+        opacity: 0.6;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg) scale(1);
+            opacity: 0.4;
+        }
+        50% {
+            transform: translateY(-40px) rotate(180deg) scale(1.2);
+            opacity: 0.8;
+        }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: var(--dark);
+        max-width: 900px;
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: var(--secondary);
+        font-weight: 500;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        color: var(--secondary);
+        line-height: 1.7;
+    }
+
+    /* Service Cards */
+    .service-card {
+        height: 100%;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        overflow: hidden;
+        border-radius: 24px;
+    }
+
+    .service-card:hover {
+        transform: translateY(-12px);
+    }
+
+    .service-card img {
+        height: 240px;
+        object-fit: cover;
+        transition: all 0.4s ease;
+    }
+
+    .service-card:hover img {
+        transform: scale(1.15);
+    }
+
+    .service-card .card-body {
+        padding: 2rem;
+    }
+
+    /* Trusted Companies Slider */
+    .companies-slider {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    .companies-track {
+        display: inline-flex;
+        animation: scroll 40s linear infinite;
+    }
+
+    .company-item {
+        flex: 0 0 auto;
+        margin: 0 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+    }
+
+    .company-item img {
+        height: 70px;
+        max-width: 180px;
+        object-fit: contain;
+        filter: grayscale(100%) brightness(0.8);
+        transition: all 0.4s ease;
+    }
+
+    .company-item:hover img {
+        filter: grayscale(0%) brightness(1);
+        transform: scale(1.15);
+    }
+
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow-lg);
+        height: 100%;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .testimonial-avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1.5rem;
+        border: 4px solid white;
+        box-shadow: var(--shadow-md);
+    }
+
+    .stars {
+        color: #ffc107;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    /* Contact Form Section */
+    .contact-section {
+        background: var(--gradient-orange);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .contact-form-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(25px);
+        border-radius: 28px;
+        padding: 3rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        border-radius: 16px;
+        padding: 16px 24px;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .form-control:focus {
+        background: white;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        transform: translateY(-3px);
+    }
+
+    /* Section Headings */
+    .section-heading {
+        position: relative;
+        margin-bottom: 4rem;
+    }
+
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--gradient-primary);
+        border-radius: 2px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .hero-title {
+            font-size: 3rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+        }
+
+        .company-item {
+            margin: 0 2rem;
+        }
+
+        .contact-form-container {
+            padding: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+        }
+
+        .company-item {
+            margin: 0 1.5rem;
+        }
+
+        .company-item img {
+            height: 50px;
+            max-width: 120px;
+        }
+
+        .testimonial-card {
+            padding: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-content {
+            padding: 0 15px;
+        }
+
+        .contact-form-container {
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-section" id="home">
+    <div class="particles-container" id="particles"></div>
+
+    <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+        {% if hero_section %}
+            <h1 class="hero-title">{{ hero_section.title }}</h1>
+            <p class="hero-subtitle">{{ hero_section.subtitle }}</p>
+            <div class="hero-description">{{ hero_section.description|safe }}</div>
+            <a href="{{ hero_section.cta_link }}" class="btn btn-primary btn-lg px-5 py-3">
+                {{ hero_section.cta_text }} <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        {% else %}
+            <h1 class="hero-title">Transform Your Business with ServiceNow</h1>
+            <p class="hero-subtitle">Premier ServiceNow Solutions Partner</p>
+            <div class="hero-description">
+                <p>Helping enterprises simplify operations, automate workflows, and drive digital transformation with deep expertise in ITSM, ITOM, HRSD, and CSM implementations.</p>
+            </div>
+            <a href="#services" class="btn btn-primary btn-lg px-5 py-3">
+                Explore Solutions <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container">
+        <div class="search-container" data-aos="fade-up" data-aos-delay="300">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search for services, training, and solutions...">
+            <button class="search-btn" type="button">
+                <i class="fas fa-search"></i>
+            </button>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" id="services">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 fw-bold section-heading">Our Services</h2>
+            <p class="lead text-muted">Comprehensive ServiceNow solutions tailored to your business needs</p>
+        </div>
+
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                <div class="card service-card glass-card h-100">
+                    <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">{{ service.name }}</h5>
+                        <p class="card-text flex-grow-1 text-muted">{{ service.short_description }}</p>
+                        <a href="{{ service.get_absolute_url }}" class="btn btn-primary mt-auto">
+                            Learn More <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{% url 'services' %}" class="btn btn-outline-primary btn-lg px-5">
+                View All Services <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% if trainings %}
+<section class="py-5 bg-light" id="trainings">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 fw-bold section-heading">Training Programs</h2>
+            <p class="lead text-muted">Empower your teams with hands-on ServiceNow training</p>
+        </div>
+
+        <div class="row g-4">
+            {% for training in trainings %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                <div class="card service-card glass-card h-100">
+                    <img src="{{ training.image.url }}" class="card-img-top" alt="{{ training.name }}">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold">{{ training.name }}</h5>
+                            <span class="badge bg-primary">{{ training.get_level_display }}</span>
+                        </div>
+                        {% if training.duration %}
+                        <p class="text-muted small mb-3"><i class="fas fa-clock me-1"></i>{{ training.duration }}</p>
+                        {% endif %}
+                        <p class="card-text flex-grow-1 text-muted">{{ training.short_description }}</p>
+                        <a href="{{ training.get_absolute_url }}" class="btn btn-primary mt-auto">
+                            Explore Program <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{% url 'trainings' %}" class="btn btn-outline-primary btn-lg px-5">
+                View All Training <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if trusted_companies %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 fw-bold section-heading">Trusted by Leading Companies</h2>
+            <p class="lead text-muted">We're proud to partner with industry leaders</p>
+        </div>
+
+        <div class="companies-slider" data-aos="fade-up">
+            <div class="companies-track">
+                {% for company in trusted_companies %}
+                    <div class="company-item">
+                        <img src="{{ company.logo.url }}" alt="{{ company.name }}" title="{{ company.name }}">
+                    </div>
+                {% endfor %}
+                {% for company in trusted_companies %}
+                    <div class="company-item">
+                        <img src="{{ company.logo.url }}" alt="{{ company.name }}" title="{{ company.name }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if testimonials %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 fw-bold section-heading">What Our Clients Say</h2>
+            <p class="lead text-muted">Don't just take our word for it</p>
+        </div>
+
+        <div class="row g-4">
+            {% for testimonial in testimonials %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                <div class="testimonial-card text-center">
+                    {% if testimonial.image %}
+                    <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="testimonial-avatar mx-auto">
+                    {% else %}
+                    <div class="testimonial-avatar mx-auto bg-primary d-flex align-items-center justify-content-center text-white">
+                        <i class="fas fa-user fa-2x"></i>
+                    </div>
+                    {% endif %}
+
+                    <div class="stars mb-4">
+                        {% for i in "12345"|make_list %}
+                            {% if forloop.counter <= testimonial.rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <p class="mb-4 fst-italic">"{{ testimonial.review }}"</p>
+
+                    <h6 class="fw-bold mb-1">{{ testimonial.name }}</h6>
+                    <small class="text-muted">{{ testimonial.designation }}{% if testimonial.company %}, {{ testimonial.company }}{% endif %}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="contact-section py-5" id="contact">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="text-white">
+                    <h2 class="display-4 fw-bold mb-4">Get In Touch</h2>
+                    <p class="lead mb-4">Ready to transform your business with ServiceNow? Let's discuss your requirements.</p>
+
+                    <div class="contact-info">
+                        {% if site_settings.phone_number %}
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="fas fa-phone fa-2x me-3"></i>
+                            <div>
+                                <h6 class="mb-1 fw-bold">Call Us</h6>
+                                <p class="mb-0">{{ site_settings.phone_number }}</p>
+                                {% if site_settings.phone_number_2 %}
+                                <p class="mb-0">{{ site_settings.phone_number_2 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if site_settings.email %}
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="fas fa-envelope fa-2x me-3"></i>
+                            <div>
+                                <h6 class="mb-1 fw-bold">Email Us</h6>
+                                <p class="mb-0">{{ site_settings.email }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if site_settings.address %}
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="fas fa-map-marker-alt fa-2x me-3 mt-1"></i>
+                            <div>
+                                <h6 class="mb-1 fw-bold">Visit Us</h6>
+                                <p class="mb-0">{{ site_settings.address }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="contact-form-container">
+                    <h4 class="text-white mb-4 fw-bold">Send us a Message</h4>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="full_name" class="form-control" placeholder="Your Full Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <input type="tel" name="phone_number" class="form-control" placeholder="Your Phone Number" required>
+                        <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">
+                            Send Message <i class="fas fa-paper-plane ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+<!--    // Create animated particles-->
+<!--    function createParticles() {-->
+<!--        const particlesContainer = document.getElementById('particles');-->
+<!--        const particleCount = 60;-->
+
+<!--        for (let i = 0; i < particleCount; i++) {-->
+<!--            const particle = document.createElement('div');-->
+<!--            particle.className = 'particle';-->
+
+<!--            // Random size-->
+<!--            const size = Math.random() * 15 + 8;-->
+<!--            particle.style.width = size + 'px';-->
+<!--            particle.style.height = size + 'px';-->
+
+<!--            // Random position-->
+<!--            particle.style.left = Math.random() * 100 + '%';-->
+<!--            particle.style.top = Math.random() * 100 + '%';-->
+
+<!--            // Random animation-->
+<!--            particle.style.animationDelay = Math.random() * 8 + 's';-->
+<!--            particle.style.animationDuration = (Math.random() * 6 + 6) + 's';-->
+
+<!--            particlesContainer.appendChild(particle);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Initialize particles when page loads-->
+<!--    document.addEventListener('DOMContentLoaded', createParticles);-->
+
+<!--    // Pause animations when not visible (performance optimization)-->
+<!--    const observer = new IntersectionObserver((entries) => {-->
+<!--        entries.forEach(entry => {-->
+<!--            const particles = entry.target.querySelectorAll('.particle');-->
+<!--            particles.forEach(particle => {-->
+<!--                if (entry.isIntersecting) {-->
+<!--                    particle.style.animationPlayState = 'running';-->
+<!--                } else {-->
+<!--                    particle.style.animationPlayState = 'paused';-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+
+<!--    const heroSection = document.querySelector('.hero-section');-->
+<!--    if (heroSection) {-->
+<!--        observer.observe(heroSection);-->
+<!--    }-->
+</script>
+{% endblock %}

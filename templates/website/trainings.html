@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %}Trainings - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .trainings-hero {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(255, 247, 237, 0.8) 100%);
+        padding: 120px 0 60px;
+        position: relative;
+    }
+
+    .training-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .training-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        height: 100%;
+    }
+
+    .training-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: var(--shadow-xl);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .training-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .training-content {
+        padding: 2.5rem;
+    }
+
+    .level-badge {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+
+    .level-beginner {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+    }
+
+    .level-intermediate {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+    }
+
+    .level-advanced {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .training-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .training-content {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="trainings-hero">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <h1 class="display-3 fw-bold mb-3">Training Programs</h1>
+            <p class="lead text-muted">Upskill your team with our comprehensive ServiceNow training programs</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="training-grid">
+            {% for training in trainings %}
+            <div class="training-card" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                <img src="{{ training.image.url }}" class="training-image" alt="{{ training.name }}">
+                <div class="training-content">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="fw-bold mb-0">{{ training.name }}</h4>
+                        <span class="level-badge level-{{ training.level }}">{{ training.get_level_display }}</span>
+                    </div>
+
+                    {% if training.duration %}
+                    <p class="text-muted mb-3">
+                        <i class="fas fa-clock me-2"></i>{{ training.duration }}
+                    </p>
+                    {% endif %}
+
+                    <p class="text-muted mb-4">{{ training.short_description }}</p>
+
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="{{ training.get_absolute_url }}" class="btn btn-primary">
+                            Learn More <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                        {% with msg="Hi, I would like to enquire about "|add:training.name|add:" training." %}
+                        <a href="{% url 'contact' %}?subject={{ training.name|urlencode }}&message={{ msg|urlencode }}" class="btn btn-outline-primary">
+                            Contact <i class="fas fa-envelope ms-2"></i>
+                        </a>
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No training programs available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="d-flex justify-content-center mt-5">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

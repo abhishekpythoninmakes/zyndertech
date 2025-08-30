@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Services - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .services-hero {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(255, 255, 255, 0.8) 100%);
+        padding: 120px 0 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .services-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%);
+        transform: rotate(15deg);
+    }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .service-item {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        height: 100%;
+    }
+
+    .service-item:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: var(--shadow-xl);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .service-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .pagination {
+        margin: 3rem 0;
+    }
+
+    .page-link {
+        border: none;
+        border-radius: 12px;
+        margin: 0 5px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .page-link:hover {
+        background: var(--gradient-primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .page-item.active .page-link {
+        background: var(--gradient-primary);
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .service-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .service-item {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="services-hero">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <h1 class="display-3 fw-bold mb-3">Our Services</h1>
+            <p class="lead text-muted">Comprehensive ServiceNow solutions to transform your business operations</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="service-grid">
+            {% for service in services %}
+            <div class="service-item" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" class="service-image">
+                {% endif %}
+                <h3 class="fw-bold mb-3">{{ service.name }}</h3>
+                <p class="text-muted mb-4">{{ service.short_description }}</p>
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{{ service.get_absolute_url }}" class="btn btn-primary">
+                        View Details <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    {% with msg="Hi, I'm interested in "|add:service.name|add:" service. Please provide more details." %}
+                    <a href="{% url 'contact' %}?message={{ msg|urlencode }}" class="btn btn-outline-primary">
+                        Contact Us <i class="fas fa-envelope ms-2"></i>
+                    </a>
+                    {% endwith %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No services available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
