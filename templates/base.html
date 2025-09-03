@@ -193,6 +193,7 @@
             position: relative;
             max-width: 650px;
             margin: 2.5rem auto;
+            z-index: 1000;
         }
 
         .search-input {
@@ -248,7 +249,8 @@
             box-shadow: var(--shadow-xl);
             max-height: 450px;
             overflow-y: auto;
-            z-index: 1000;
+            overflow-x: hidden;
+            z-index: 1100;
             display: none;
             margin-top: 10px;
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -407,7 +409,7 @@
         <div class="container">
 <a class="navbar-brand" href="{% url 'home' %}">
     {% if site_settings.site_logo %}
-        <img src="{{ site_settings.site_logo.url }}" alt="{{ site_settings.site_name }}" style="height: 76px;" width="142px;">
+        <img src="{{ site_settings.site_logo.url }}" alt="{{ site_settings.site_name }}">
     {% else %}
         <h3 class="mb-0 text-primary fw-bold">{{ site_settings.site_name|default:"Zynder Tech" }}</h3>
     {% endif %}
