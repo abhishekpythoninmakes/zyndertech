@@ -475,7 +475,7 @@
                         {% if site_settings.site_logo %}
                             <img src="{{ site_settings.site_logo.url }}" alt="{{ site_settings.site_name }}" style="height: 45px; margin-right: 15px;">
                         {% endif %}
-                        <h5 class="mb-0">{{ site_settings.site_name|default:"Zynder Tech" }}</h5>
+                        <!--<h5 class="mb-0">{{ site_settings.site_name|default:"Zynder Tech" }}</h5>-->
                     </div>
                     <p class="mb-4">ServiceNow-focused solutions partner helping enterprises simplify operations, automate workflows, and drive digital transformation.</p>
                     <div class="social-links">
@@ -525,7 +525,7 @@
             <hr style="border-color: #444; margin: 2rem 0;">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p class="mb-0">&copy; 2024 {{ site_settings.site_name|default:"Zynder Tech" }}. All rights reserved.</p>
+                        <p class="mb-0">&copy; 2026 {{ site_settings.site_name|default:"Zynder Tech" }}. All rights reserved.</p>
                 </div>
             </div>
         </div>
@@ -674,6 +674,12 @@
                     });
                 });
             });
+        });
+    </script>
+    <script>
+        // Update all elements with data-year attribute
+        document.querySelectorAll('[data-year]').forEach(element => {
+            element.textContent = new Date().getFullYear();
         });
     </script>
 
