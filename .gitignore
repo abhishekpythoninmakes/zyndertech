@@ -11,3 +11,6 @@ db.sqlite3
 
 # Uploaded Media Files
 media/
+
+migrations/0001_initial.py 
+
