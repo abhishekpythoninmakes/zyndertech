@@ -127,9 +127,35 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
-USE_X_FORWARDED_HOST = True
-USE_X_FORWARDED_PORT = True
+SECURE_PROXY_SSL_HEADER = None  # Comment out or set to None since you're using HTTP
+USE_X_FORWARDED_HOST = False
+USE_X_FORWARDED_PORT = False
+
+# Comment out or remove these security settings temporarily
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# X_FRAME_OPTIONS = 'DENY'
+
+# Change X_FRAME_OPTIONS to allow same origin
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Add CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    'http://zyndertech.com',
+    'http://www.zyndertech.com',
+    'http://3.83.187.11',
+    'http://172.31.65.18',
+]
+
+# Session settings
+SESSION_COOKIE_SECURE = False  # Set to True only if using HTTPS
+CSRF_COOKIE_SECURE = False     # Set to True only if using HTTPS
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Security middleware settings
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_BROWSER_XSS_FILTER = False
 
 
 # CKEditor Configuration
