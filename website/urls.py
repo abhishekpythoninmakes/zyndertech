@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/search/', views.live_search, name='live_search'),
     path('terms/', views.terms,name='terms'),
     path('privacy/', views.privacy,name='privacy'),
+    path('refund/', views.refund,name='refund'),
 ]

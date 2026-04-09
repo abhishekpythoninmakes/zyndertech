@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Terms & Conditions - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
+{% block title %}Privacy Policy - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
 
-<!-- {% block extra_css %} -->
+{% block extra_css %}
 <style>
     .policy-container {
         max-width: 900px;
-        margin: 50px auto;
+        margin: 0 auto;
+        padding-top: 120px;
+        padding-bottom: 50px;
         line-height: 1.7;
     }
     .policy-container h1 {
@@ -21,79 +23,81 @@
 {% block content %}
 
 <div class="container policy-container">
-   <h1>Cancellation & Refund Policy</h1>
+    <h1>Privacy Policy</h1>
 
-    <h3>1. Cancellation Policy</h3>
-
-    <h4>1.1 By Client</h4>
     <p>
-        Clients may request cancellation of services by providing written notice via email.
-        Cancellation requests must be made at least [7–14 days] prior to the scheduled service or project milestone.
-        Any work already completed up to the cancellation date will be billed accordingly.
+        Zynder Tech Pvt. Ltd. ("Company", "we", "our", "us") is committed to protecting your privacy.
+        This Privacy Policy explains how we collect, use, and safeguard your information when you
+        visit our website or use our services.
     </p>
 
-    <h4>1.2 By Company</h4>
-    <p>We reserve the right to cancel services if:</p>
+    <h3>1. Information We Collect</h3>
     <ul>
-        <li>There is a breach of contract or terms</li>
-        <li>Required information or cooperation is not provided by the client</li>
-        <li>Payment obligations are not met</li>
+        <li><strong>Personal Information:</strong> Name, email address, phone number, company details</li>
+        <li><strong>Technical Data:</strong> IP address, browser type, device information</li>
+        <li><strong>Usage Data:</strong> Pages visited, time spent, interactions on the website</li>
     </ul>
 
-    <h3>2. Refund Policy</h3>
-
-    <h4>2.1 Eligibility for Refunds</h4>
+    <h3>2. How We Use Your Information</h3>
     <ul>
-        <li>Services have not yet commenced</li>
-        <li>Cancellation is made within the agreed cancellation window</li>
-        <li>Duplicate or excess payments made by the client</li>
+        <li>To provide and manage our IT services</li>
+        <li>To communicate with you regarding inquiries or projects</li>
+        <li>To improve website performance and user experience</li>
+        <li>To comply with legal obligations</li>
     </ul>
 
-    <h4>2.2 Non-Refundable Cases</h4>
-    <ul>
-        <li>Services already delivered or partially completed</li>
-        <li>Change of mind after project initiation</li>
-        <li>Delays caused by the client</li>
-        <li>Third-party costs (e.g., ServiceNow licensing, external tools)</li>
-    </ul>
-
-    <h3>3. Partial Refunds</h3>
+    <h3>3. Sharing of Information</h3>
     <p>
-        If a project is canceled midway, a partial refund may be issued after deducting:
+        We do not sell or rent your personal data. We may share information with:
     </p>
     <ul>
-        <li>Work completed</li>
-        <li>Resource allocation costs</li>
-        <li>Administrative charges</li>
+        <li>Trusted service providers and partners</li>
+        <li>Legal authorities when required by law</li>
+        <li>Third-party platforms (e.g., ServiceNow integrations)</li>
     </ul>
 
-    <h3>4. Refund Process</h3>
-    <ul>
-        <li>Approved refunds will be processed within [7–14 business days]</li>
-        <li>Refunds will be issued via the original payment method unless otherwise agreed</li>
-    </ul>
-
-    <h3>5. Subscription & Support Services</h3>
+    <h3>4. Data Security</h3>
     <p>
-        For ongoing support or AMC (Annual Maintenance Contracts):
-    </p>
-    <ul>
-        <li>Clients may cancel with prior notice as per agreement</li>
-        <li>Refunds, if applicable, will be pro-rated based on unused service duration</li>
-    </ul>
-
-    <h3>6. Force Majeure</h3>
-    <p>
-        No refunds or cancellations will be applicable for delays or failures caused by events beyond our control,
-        including but not limited to natural disasters, system outages, or regulatory changes.
+        We implement appropriate technical and organizational measures to protect your data
+        from unauthorized access, disclosure, or misuse.
     </p>
 
-    <h3>7. Contact Us</h3>
+    <h3>5. Cookies</h3>
     <p>
-           
-    📧 Email: <a href="mailto:info@zyndertech.com">info@zyndertech.com</a><br>
-    🌐 Website: <a href="https://zyndertech.com" target="_blank">https://zyndertech.com</a>
+        Our website may use cookies to enhance user experience and analyze traffic.
+        You can control cookie preferences through your browser settings.
+    </p>
 
+    <h3>6. Data Retention</h3>
+    <p>
+        We retain your information only as long as necessary for business or legal purposes.
+    </p>
+
+    <h3>7. Your Rights</h3>
+    <ul>
+        <li>Access, update, or delete your personal data</li>
+        <li>Withdraw consent where applicable</li>
+        <li>Request details about how your data is used</li>
+    </ul>
+
+    <h3>8. Third-Party Links</h3>
+    <p>
+        Our website may contain links to external websites. We are not responsible for
+        the privacy practices of those sites.
+    </p>
+
+    <h3>9. Changes to This Policy</h3>
+    <p>
+        We may update this Privacy Policy from time to time. Changes will be posted on this page.
+    </p>
+
+    <h3>10. Contact Us</h3>
+    <p>
+        If you have any questions about this Privacy Policy:
+    </p>
+    <p>
+        📧 Email: <a href="mailto:info@zyndertech.com">info@zyndertech.com</a><br>
+        🌐 Website: <a href="https://zyndertech.com" target="_blank">https://zyndertech.com</a>
     </p>
 
     <p><strong>Last Updated:</strong> 01/01/2026</p>

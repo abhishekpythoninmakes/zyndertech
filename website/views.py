@@ -198,4 +198,7 @@ def terms(request):
 def privacy(request):
     return render(request, 'website/privacy.html')
 
+def refund(request):
+    return render(request, 'website/refund.html')
+
 
