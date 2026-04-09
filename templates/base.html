@@ -524,10 +524,19 @@
 
             <hr style="border-color: #444; margin: 2rem 0;">
             <div class="row">
-                <div class="col-md-12 text-center">
-                        <p class="mb-0">&copy; 2026 {{ site_settings.site_name|default:"Zynder Tech" }}. All rights reserved.</p>
-                </div>
-            </div>
+    <div class="col-md-12 text-center">
+        <p class="mb-0">
+            &copy; 2026 {{ site_settings.site_name|default:"Zynder Tech" }}. All rights reserved.
+        </p>
+    </div>
+
+    <div class="col-md-12 text-center">
+        <p class="mb-0">
+            <a href="{% url 'terms' %}">Terms & Conditions</a> |
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+        </p>
+    </div>
+</div>
         </div>
     </footer>
 
