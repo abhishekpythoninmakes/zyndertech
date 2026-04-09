@@ -10,4 +10,6 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('contact_new/',views.contact_view_new,name='contact_new'),
     path('api/search/', views.live_search, name='live_search'),
+    path('terms/', views.terms,name='terms'),
+    path('privacy/', views.privacy,name='privacy'),
 ]

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Terms & Conditions - {{ site_settings.site_name|default:"Zynder Tech" }}{% endblock %}
+
+<!-- {% block extra_css %} -->
+<style>
+    .policy-container {
+        max-width: 900px;
+        margin: 50px auto;
+        line-height: 1.7;
+    }
+    .policy-container h1 {
+        margin-bottom: 20px;
+    }
+    .policy-container h3 {
+        margin-top: 25px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container policy-container">
+   <h1>Cancellation & Refund Policy</h1>
+
+    <h3>1. Cancellation Policy</h3>
+
+    <h4>1.1 By Client</h4>
+    <p>
+        Clients may request cancellation of services by providing written notice via email.
+        Cancellation requests must be made at least [7–14 days] prior to the scheduled service or project milestone.
+        Any work already completed up to the cancellation date will be billed accordingly.
+    </p>
+
+    <h4>1.2 By Company</h4>
+    <p>We reserve the right to cancel services if:</p>
+    <ul>
+        <li>There is a breach of contract or terms</li>
+        <li>Required information or cooperation is not provided by the client</li>
+        <li>Payment obligations are not met</li>
+    </ul>
+
+    <h3>2. Refund Policy</h3>
+
+    <h4>2.1 Eligibility for Refunds</h4>
+    <ul>
+        <li>Services have not yet commenced</li>
+        <li>Cancellation is made within the agreed cancellation window</li>
+        <li>Duplicate or excess payments made by the client</li>
+    </ul>
+
+    <h4>2.2 Non-Refundable Cases</h4>
+    <ul>
+        <li>Services already delivered or partially completed</li>
+        <li>Change of mind after project initiation</li>
+        <li>Delays caused by the client</li>
+        <li>Third-party costs (e.g., ServiceNow licensing, external tools)</li>
+    </ul>
+
+    <h3>3. Partial Refunds</h3>
+    <p>
+        If a project is canceled midway, a partial refund may be issued after deducting:
+    </p>
+    <ul>
+        <li>Work completed</li>
+        <li>Resource allocation costs</li>
+        <li>Administrative charges</li>
+    </ul>
+
+    <h3>4. Refund Process</h3>
+    <ul>
+        <li>Approved refunds will be processed within [7–14 business days]</li>
+        <li>Refunds will be issued via the original payment method unless otherwise agreed</li>
+    </ul>
+
+    <h3>5. Subscription & Support Services</h3>
+    <p>
+        For ongoing support or AMC (Annual Maintenance Contracts):
+    </p>
+    <ul>
+        <li>Clients may cancel with prior notice as per agreement</li>
+        <li>Refunds, if applicable, will be pro-rated based on unused service duration</li>
+    </ul>
+
+    <h3>6. Force Majeure</h3>
+    <p>
+        No refunds or cancellations will be applicable for delays or failures caused by events beyond our control,
+        including but not limited to natural disasters, system outages, or regulatory changes.
+    </p>
+
+    <h3>7. Contact Us</h3>
+    <p>
+           
+    📧 Email: <a href="mailto:info@zyndertech.com">info@zyndertech.com</a><br>
+    🌐 Website: <a href="https://zyndertech.com" target="_blank">https://zyndertech.com</a>
+
+    </p>
+
+    <p><strong>Last Updated:</strong> 01/01/2026</p>
+</div>
+
+{% endblock %}

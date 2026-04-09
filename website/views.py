@@ -193,3 +193,9 @@ def contact_view_new(request):
     return render(request, "website/contact.html", {"form": form})
 
 
+def terms(request):
+    return render(request, 'website/terms.html')
+def privacy(request):
+    return render(request, 'website/privacy.html')
+
+
